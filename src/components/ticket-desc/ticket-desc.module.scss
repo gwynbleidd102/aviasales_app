@@ -1,0 +1,29 @@
+.ticket-desc {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+
+	&__column {
+		width: 141px;
+	}
+
+	&__title {
+		color: #A0B0B9;
+		font-size: 12px;
+		font-weight: 600;
+		line-height: 18px;
+		letter-spacing: 0.5px;
+		text-transform: uppercase;
+	}
+
+	&__info {
+		color: #4A4A4A;
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 21px;
+
+		@media screen and (max-width: 320px) {
+			font-size: 12px;
+		}
+	}
+}

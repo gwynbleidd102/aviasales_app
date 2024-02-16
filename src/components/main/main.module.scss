@@ -1,0 +1,32 @@
+.main {
+	width: 764px;
+	margin: 0 auto;
+	display: flex;
+
+	@media screen and (max-width: 780px) {
+		width: 502px;
+		display: block;
+
+	}
+
+	@media screen and (max-width: 525px) {
+		width: 100%;
+		display: block;
+
+	}
+
+	@media screen and (max-width: 320px) {
+		width: 300px;
+		display: block;
+
+	}
+
+	&__aside {
+		display: flex;
+		justify-content: center;
+	}
+
+	&__section {
+		// background-color: #000;
+	}
+}
