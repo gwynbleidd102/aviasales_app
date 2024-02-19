@@ -10,6 +10,15 @@ import filterTickets from '../../utilities/filterTickets'
 
 import styles from './tickets.module.scss'
 
+function hashCode(str) {
+  let hash = 0
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i)
+    hash = (hash << 5) - hash + char
+  }
+  return hash
+}
+
 function Tickets() {
   const dispatch = useDispatch()
   const ticketsArr = useSelector((state) => state.tickets.tickets)
@@ -27,14 +36,14 @@ function Tickets() {
   }
 
   const sortedTickets = useMemo(() => sortTickets(ticketsArr, sortValue), [ticketsArr, sortValue])
-  const filtredTickets = useMemo(() => filterTickets(sortedTickets, checkboxValue), [sortedTickets, checkboxValue])
+  const filteredTickets = useMemo(() => filterTickets(sortedTickets, checkboxValue), [sortedTickets, checkboxValue])
 
-  const tickets = filtredTickets.slice(0, ticketsLenth).map((ticket) => {
-    const id = `ticket-${new Date().getTime()}`
+  const tickets = filteredTickets.slice(0, ticketsLenth).map((ticket) => {
+    const id = hashCode(JSON.stringify(ticket))
     return <Ticket key={id} ticket={ticket} />
   })
 
-  if (filtredTickets.length > 0) {
+  if (filteredTickets.length > 0) {
     return (
       <>
         {loading ? <Spinner /> : null}
