@@ -1,22 +1,31 @@
+import cloneDeep from 'lodash/cloneDeep'
+
 import { CHEAP, FAST, OPTIMAL } from '../reducers/types'
 
 const sortTickets = (items, filter) => {
+  let itemsCopy
+
   switch (filter) {
     case CHEAP:
-      return items.sort((a, b) => a.price - b.price)
+      itemsCopy = cloneDeep(items).sort((a, b) => a.price - b.price)
+      break
     case FAST:
-      return items.sort(
+      itemsCopy = cloneDeep(items).sort(
         (a, b) => a.segments[0].duration + a.segments[1].duration - (b.segments[0].duration + b.segments[1].duration)
       )
+      break
     case OPTIMAL:
-      return items
+      itemsCopy = cloneDeep(items)
         .sort(
           (a, b) => a.segments[0].duration + a.segments[1].duration - (b.segments[0].duration + b.segments[1].duration)
         )
         .sort((a, b) => a.price - b.price)
+      break
     default:
-      return items
+      itemsCopy = cloneDeep(items)
   }
+
+  return itemsCopy
 }
 
 export default sortTickets

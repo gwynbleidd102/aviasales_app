@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+import { useEffect, useState, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { listTicked } from '../../actions/actions'
@@ -27,11 +26,11 @@ function Tickets() {
     setTicketsLenth((ticketsLenth) => ticketsLenth + 5)
   }
 
-  sortTickets(ticketsArr, sortValue)
-  const filtredTickets = filterTickets(ticketsArr, checkboxValue)
+  const sortedTickets = useMemo(() => sortTickets(ticketsArr, sortValue), [ticketsArr, sortValue])
+  const filtredTickets = useMemo(() => filterTickets(sortedTickets, checkboxValue), [sortedTickets, checkboxValue])
 
   const tickets = filtredTickets.slice(0, ticketsLenth).map((ticket) => {
-    const id = uuidv4()
+    const id = `ticket-${new Date().getTime()}`
     return <Ticket key={id} ticket={ticket} />
   })
 

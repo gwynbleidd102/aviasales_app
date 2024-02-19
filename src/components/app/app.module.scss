@@ -1,13 +1,13 @@
 .app {
-	background-color: #F3F7FA;
-	min-height: 100vh;
-	min-width: 320px;
-	overflow: hidden;
+  background-color: #f3f7fa;
+  min-height: 100vh;
+  min-width: 320px;
+  overflow: hidden;
 
-	&__logo {
-		height: 160px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
+  &__logo {
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

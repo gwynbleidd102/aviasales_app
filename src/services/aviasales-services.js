@@ -13,25 +13,29 @@ export default class AviasalesService {
     try {
       const res = await fetch(url, this.options)
       if (!res.ok) {
-        throw new Error(`Could not fetch ${url} , status: ${res.status}`)
+        throw new Error(`Could not fetch ${url}, status: ${res.status}`)
       }
       return await res.json()
-    } catch (e) {
-      if (e.message.includes('отсутствует подключение к сети')) {
-        console.log('Отсутствует подключение к сети')
+    } catch (error) {
+      if (error.message.includes('отсутствует подключение к сети')) {
+        throw new Error('Отсутствует подключение к сети')
       } else {
-        console.log(e.message)
+        throw new Error(`Ошибка запроса: ${error.message}`)
       }
     }
   }
 
   async getTickets() {
-    if (this.id === null) {
-      const id = await this.getResource(`${this.url}/search`)
-      this.id = id.searchId
-    }
+    try {
+      if (this.id === null) {
+        const id = await this.getResource(`${this.url}/search`)
+        this.id = id.searchId
+      }
 
-    const res = await this.getResource(`${this.url}/tickets?searchId=${this.id}`)
-    return res
+      const res = await this.getResource(`${this.url}/tickets?searchId=${this.id}`)
+      return res
+    } catch (error) {
+      throw new Error(`Произошла ошибка: ${error.message}`)
+    }
   }
 }
